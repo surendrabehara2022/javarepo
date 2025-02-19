@@ -9,16 +9,10 @@ variables:
   acrName: 'acrmanual'
 
 steps:
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '8.x'
-    installationPath: $(Agent.ToolsDirectory)/dotnet
-
 # Step 1: List contents of MyConsoleApp to verify the Dockerfile exists
 - script: |
     ls -R
-    ls /home/vsts/work/1/s/MyFirstWebAPIProject/Dockerfile
+    ls /home/vsts/work/1/s/Dockerfile
   displayName: 'List MyConsoleApp Contents'
 
 - script: |
@@ -34,7 +28,7 @@ steps:
 
 # Step 2: Build Docker Image (with corrected context)
 - script: |
-    docker build -t $(imageName):$(Build.BuildId) -f '$(Build.SourcesDirectory)/MyFirstWebAPIProject/Dockerfile' $(Build.SourcesDirectory)
+    docker build -t $(imageName):$(Build.BuildId) -f '$(Build.SourcesDirectory)/Dockerfile' $(Build.SourcesDirectory)
   displayName: 'Build Docker Image'
 
 # Step 3: Tag Docker Image (optional but useful for pushing)
